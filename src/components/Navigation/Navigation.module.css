@@ -1,0 +1,20 @@
+.nav {
+    background-color: #333;
+    padding: 1rem;
+}
+
+.navList {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navItem {
+    color: white;
+}
+
+.navItem a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
