@@ -10,7 +10,7 @@ import Navigation from './Navigation/Navigation.jsx';
 import UserMenu from './UserMenu/UserMenu.jsx';
 import { fetchContacts, addContact, deleteContact } from '../features/contacts/contactsSlice.jsx';
 import { setFilter } from '../features/filter/filterSlice.jsx';
-import { Container, Typography, CircularProgress, Box } from '@mui/material';
+import { Container, Typography, CircularProgress } from '@mui/material';
 import PropTypes from 'prop-types';
 import styles from './App.module.css';
 

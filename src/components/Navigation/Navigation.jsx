@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import PropTypes from 'prop-types';
 import styles from './Navigation.module.css';
 
 function Navigation() {
@@ -18,9 +17,6 @@ function Navigation() {
   );
 }
 
-Navigation.propTypes = {
-  // Nu avem props în această componentă.
-};
 
 export default Navigation;
 
