@@ -1,22 +1,26 @@
 import React from 'react';
-import { Button, Typography, Box } from '@mui/material';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/authOperations';
+import { getUserEmail } from '../../features/authSelectors';
 import styles from './UserMenu.module.css';
 
-function UserMenu({ email, onLogout }) {
+function UserMenu() {
+  const dispatch = useDispatch();
+  const email = useSelector(getUserEmail);
+
   return (
-    <Box className={styles.mainDiv}>
-      <Box className={styles.userMenu}>
-        <Typography variant="body1" className={styles.email}>{email}</Typography>
-        <Button variant="contained" color="secondary" className={styles.logoutButton} onClick={onLogout}>Logout</Button>
-      </Box>
-    </Box>
+    <div className={styles.container}>
+      <p className={styles.email}>{email}</p>
+      <button
+        className={styles.logoutButton}
+        onClick={() => dispatch(logout())}
+      >
+        Logout
+      </button>
+    </div>
   );
 }
 
-UserMenu.propTypes = {
-  email: PropTypes.string.isRequired,
-  onLogout: PropTypes.func.isRequired,
-};
-
 export default UserMenu;
+
+

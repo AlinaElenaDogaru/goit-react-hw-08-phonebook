@@ -3,30 +3,45 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   user: null,
   token: null,
-  isRefreshing: false,
+  isLoggedIn: false,
+  isFetchingCurrentUser: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loginSuccess: (state, action) => {
+    loginSuccess(state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.isLoggedIn = true;
     },
-    logout: (state) => {
+    logoutSuccess(state) {
       state.user = null;
       state.token = null;
+      state.isLoggedIn = false;
     },
-    setRefreshing: (state, action) => {
-      state.isRefreshing = action.payload;
+    fetchCurrentUserStart(state) {
+      state.isFetchingCurrentUser = true;
+    },
+    fetchCurrentUserSuccess(state, action) {
+      state.user = action.payload;
+      state.isLoggedIn = true;
+      state.isFetchingCurrentUser = false;
+    },
+    fetchCurrentUserError(state) {
+      state.isFetchingCurrentUser = false;
     },
   },
 });
 
-export const { loginSuccess, logout, setRefreshing } = authSlice.actions;
-
-export const selectIsLoggedIn = (state) => !!state.auth.token;
-export const selectIsRefreshing = (state) => state.auth.isRefreshing;
+export const {
+  loginSuccess,
+  logoutSuccess,
+  fetchCurrentUserStart,
+  fetchCurrentUserSuccess,
+  fetchCurrentUserError,
+} = authSlice.actions;
 
 export default authSlice.reducer;
+

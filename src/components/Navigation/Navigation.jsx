@@ -1,23 +1,43 @@
-import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import UserMenu from '../UserMenu/UserMenu';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../../features/authSelectors';
 import styles from './Navigation.module.css';
 
 function Navigation() {
+  const isLoggedIn = useSelector(getIsLoggedIn);
+
   return (
-    <AppBar position="static" className={styles.nav}>
-      <Toolbar>
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Contact Book
-        </Typography>
-        <Button color="inherit" component={Link} to="/register" className={styles.navItem}>Register</Button>
-        <Button color="inherit" component={Link} to="/login" className={styles.navItem}>Login</Button>
-        <Button color="inherit" component={Link} to="/contacts" className={styles.navItem}>Contacts</Button>
-      </Toolbar>
-    </AppBar>
+    <nav className={styles.nav}>
+      <div>
+        <NavLink to="/" className={styles.link}>
+          Home
+        </NavLink>
+        {isLoggedIn && (
+          <NavLink to="/contacts" className={styles.link}>
+            Contacts
+          </NavLink>
+        )}
+      </div>
+      {isLoggedIn ? (
+        <UserMenu />
+      ) : (
+        <div>
+          <NavLink to="/register" className={styles.link}>
+            Register
+          </NavLink>
+          <NavLink to="/login" className={styles.link}>
+            Login
+          </NavLink>
+        </div>
+      )}
+    </nav>
   );
 }
 
-
 export default Navigation;
+
+
 
 

@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://AlinaElenaDogaru.github.io/goit-react-hw-08-phonebook/",
+  "proxy": "https://connections-api.goit.global",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.2.1",
+    "@mui/icons-material": "^6.3.0",
+    "@mui/material": "^6.3.0",
     "@reduxjs/toolkit": "^2.5.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",

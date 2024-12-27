@@ -1,20 +1,20 @@
 .nav {
-    background-color: #333;
-    padding: 1rem;
-}
-
-.navList {
-    list-style: none;
     display: flex;
-    justify-content: space-around;
-}
-
-.navItem {
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #1976d2;
     color: white;
 }
 
-.navItem a {
-    color: white;
+.link {
+    margin-right: 10px;
     text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+.link.active {
     font-weight: bold;
+    border-bottom: 2px solid white;
 }
