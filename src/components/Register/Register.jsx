@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../features/authOperations';
-import { getIsLoadingRegister, getRegisterError } from '../../features/authSelectors';
+import { getIsLoadingRegister, getRegisterError, getIsLoggedIn } from '../../features/authSelectors';
 
 function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -9,6 +9,13 @@ function RegisterPage() {
   const dispatch = useDispatch();
   const isLoadingRegister = useSelector(getIsLoadingRegister);
   const registerError = useSelector(getRegisterError);
+  const isLoggedIn = useSelector(getIsLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      alert('Registration successful!');
+    }
+  }, [isLoggedIn]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

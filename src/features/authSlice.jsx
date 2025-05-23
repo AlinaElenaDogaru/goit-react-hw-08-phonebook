@@ -1,6 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, login, logout, fetchCurrentUser } from '../features/authOperations';
 
+// Helper function to map error messages
+const mapAuthErrorToMessage = (error) => {
+  if (!error) {
+    return "An unexpected error occurred. Please try again.";
+  }
+  const errorMessage = String(error).toLowerCase(); // Ensure error is a string and lowercase
+
+  if (errorMessage.includes("400") || errorMessage.includes("invalid credentials")) {
+    return "Invalid email or password. Please try again.";
+  } else if (errorMessage.includes("409") || errorMessage.includes("already exists")) {
+    return "This email is already registered. Please try logging in or use a different email.";
+  } else if (errorMessage.includes("network error")) {
+    return "Unable to connect to the server. Please check your internet connection.";
+  }
+  return "An unexpected error occurred. Please try again.";
+};
+
 const initialState = {
   user: null,
   token: null,
@@ -34,7 +51,7 @@ const authSlice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoadingRegister = false;
-        state.registerError = action.payload || action.error.message;
+        state.registerError = mapAuthErrorToMessage(action.payload || action.error.message);
       })
       // Login
       .addCase(login.pending, (state) => {
@@ -49,7 +66,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoadingLogin = false;
-        state.loginError = action.payload || action.error.message;
+        state.loginError = mapAuthErrorToMessage(action.payload || action.error.message);
       })
       // Logout
       .addCase(logout.pending, (state) => {
