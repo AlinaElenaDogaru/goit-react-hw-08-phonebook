@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/authOperations';
+import { getIsLoadingLogin, getLoginError } from '../../features/authSelectors';
 import styles from './Login.module.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress'; // For loading indicator
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const isLoadingLogin = useSelector(getIsLoadingLogin);
+  const loginError = useSelector(getLoginError);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +29,7 @@ function LoginPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className={styles.input}
+          disabled={isLoadingLogin}
         />
         <TextField
           label="Password"
@@ -33,15 +38,20 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={styles.input}
+          disabled={isLoadingLogin}
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={styles.button}
-        >
-          Login
-        </Button>
+        <div className={styles.buttonContainer}> {/* Wrapper for button and loader */}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={styles.button}
+            disabled={isLoadingLogin}
+          >
+            {isLoadingLogin ? <CircularProgress size={24} color="inherit" /> : 'Login'}
+          </Button>
+        </div>
+        {loginError && <p className={styles.errorText} style={{ color: 'red' }}>Error: {loginError}</p>}
       </form>
     </div>
   );
