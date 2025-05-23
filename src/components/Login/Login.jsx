@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/authOperations';
-import { getIsLoadingLogin, getLoginError } from '../../features/authSelectors';
+import { getIsLoadingLogin, getLoginError, getIsLoggedIn } from '../../features/authSelectors';
 import styles from './Login.module.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -13,6 +13,13 @@ function LoginPage() {
   const dispatch = useDispatch();
   const isLoadingLogin = useSelector(getIsLoadingLogin);
   const loginError = useSelector(getLoginError);
+  const isLoggedIn = useSelector(getIsLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      alert('Login successful!');
+    }
+  }, [isLoggedIn]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
