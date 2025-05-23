@@ -8,14 +8,14 @@ import LoginPage from '../components/Login/Login';
 import ContactsPage from '../components/ContactsPage/contactsPage';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchCurrentUserThunk } from '../features/authThunks';
+import { fetchCurrentUser } from '../features/authOperations';
 
 function App() {
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCurrentUserThunk());
+    dispatch(fetchCurrentUser());
   }, [dispatch]);
   return (
     <>
